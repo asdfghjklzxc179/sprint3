@@ -98,33 +98,43 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        while self.can_move_right() == True:
-            if self.compare_item() is None:
-                self.swap_item()
-                self.move_right()
-                print(self._item)
-                return self.sort()
-            if self.compare_item() == -1:
-                self.move_right()
-                print(self._item)
-                return self.sort()
-            if self.compare_item() == 1:
-                self.swap_item()
-                print(self._item)
-                return self.sort()
+        """
+        Compare the held item with the item in front of the robot:
+        If the held item's value is greater, return 1.
+        If the held item's value is less, return -1.
+        If the held item's value is equal, return 0.
+        If either item is None, return None.
+        """
+        while self.light_is_on() == False:
+            self.set_light_on()
+            while self.can_move_right() == True:
+                if self.compare_item() is None:
+                    self.swap_item()
+                    self.move_right()
+                if self.compare_item() == -1:
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_off()
 
-            return self.sort()
+            if self.light_is_on() is False:
+                while self.can_move_left() == True:
+                    self.move_left()
+                """
+                while self.can_move_right() == False:
+                    if self.can_move_left() != False:
+                        self.move_left()
 
-        while self.can_move_right() == False:
-            if self.can_move_left() != False:
-                self.move_left()
+                    if self.can_move_left() == False:
+                        self.swap_item()
+                        self.move_right()
 
-            if self.can_move_left() == False:
-                self.swap_item()
-                self.move_right()
-
-            return self.sort()
-
+    """
     """
         if self._position == 0:
             self.swap_item()
@@ -136,6 +146,8 @@ class SortingRobot:
                 self.move_right()
 
                 return self.sort()
+            
+
     """
 
 
