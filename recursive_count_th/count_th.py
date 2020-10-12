@@ -12,13 +12,18 @@ def count_th(word):
     # TBC
     # count parameter?
     #print(word.count("th", 0, len(word)))
+    count = 0
     print(len(word))
     if len(word) < 2:
         return 0
     elif word[0:2] != "th":
         return count_th(word[1:])
     elif word[0:2] == "th":
-        return count_th(word[1:])
+        print('got a match')
+        count += 1
+        return count, count_th(word[1:])
+
+    return count
 
 
-count_th('thsthsmiththythy thy pop')
+count_th('abcthefthghith')
